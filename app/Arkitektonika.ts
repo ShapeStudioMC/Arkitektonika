@@ -1,7 +1,7 @@
 import ArkitektonikaServer from "./http/ArkitektonikaServer.js";
 import Logger from "./Logger.js";
 import IDataStorage from "./storage/IDataStorage.js";
-import Database from "./storage/Database.js";
+import Database from "./storage/MySQLDatabase.js";
 import path from "path";
 import * as fs from "fs";
 import {Config, loadConfig} from "./config/Config.js";
