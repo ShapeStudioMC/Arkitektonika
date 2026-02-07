@@ -58,8 +58,8 @@ export default class MySQLDatabase implements IDataStorage {
 
     async storeSchematicRecord(record: SchematicRecord): Promise<SchematicRecord> {
         await this.pool.query(
-            'INSERT INTO accounting (filename, download_key, delete_key, last_accessed) VALUES (?, ?, ?, ?)',
-            [record.fileName, record.downloadKey, record.deleteKey, Date.now()]
+            'INSERT INTO accounting (filename, download_key, delete_key, last_accessed, uploaded_by) VALUES (?, ?, ?, ?, ?)',
+            [record.fileName, record.downloadKey, record.deleteKey, Date.now(), record.uploader]
         );
         return record;
     }
@@ -111,7 +111,8 @@ export default class MySQLDatabase implements IDataStorage {
                 delete_key CHAR(32) NOT NULL UNIQUE,
                 filename VARCHAR(255) NOT NULL,
                 last_accessed BIGINT NOT NULL,
-                expired BIGINT NULL
+                expired BIGINT NULL,
+                uploaded_by CHAR(36) NULL
             );`,
         ];
 

@@ -22,6 +22,7 @@ export const UPLOAD_ROUTER = (app: Arkitektonika, router: express.Application) =
     })
     router.post('/upload', fileUpload(UPLOAD_OPTIONS), (async (req, res) => {
         const file = req.files?.schematic as UploadedFile;
+        const uuid = req.header('X-UUID');
 
         // check if request contains file
         if (!file) {
@@ -70,7 +71,8 @@ export const UPLOAD_ROUTER = (app: Arkitektonika, router: express.Application) =
         try {
             const record = await app.dataStorage.storeSchematicRecord({
                 downloadKey, deleteKey,
-                fileName: file.name
+                fileName: file.name,
+                uploader: uuid
             });
             await file.mv(path.join(SCHEMATIC_DIR, downloadKey))
             res.status(200).send({
