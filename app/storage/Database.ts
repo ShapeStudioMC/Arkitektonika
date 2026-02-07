@@ -85,8 +85,8 @@ export default class Database implements IDataStorage {
     storeSchematicRecord(record: SchematicRecord): Promise<SchematicRecord> {
         return new Promise(async (resolve, reject) => {
             try {
-                this.database.prepare('INSERT INTO accounting (filename, download_key, delete_key, last_accessed) VALUES (?, ?, ?, ?)')
-                    .bind([record.fileName, record.downloadKey, record.deleteKey, Date.now()]).run();
+                this.database.prepare('INSERT INTO accounting (filename, download_key, delete_key, last_accessed, uploaded_by) VALUES (?, ?, ?, ?, ?)')
+                    .bind([record.fileName, record.downloadKey, record.deleteKey, Date.now(), record.uploader]).run();
                 resolve(record);
             } catch (error) {
                 reject(error);
