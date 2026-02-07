@@ -132,6 +132,7 @@ export default class MySQLDatabase implements IDataStorage {
             fileName: row.filename,
             expired: row.expired ? new Date(Number(row.expired)) : undefined,
             last_accessed: row.last_accessed ? new Date(Number(row.last_accessed)) : undefined,
+            uploader: row.uploaded_by
         };
     }
 }
