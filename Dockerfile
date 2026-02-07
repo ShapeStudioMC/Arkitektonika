@@ -9,9 +9,7 @@ COPY tsconfig.json ./
 COPY yarn.lock ./
 COPY .yarnrc.yml ./
 COPY ./app ./app
-RUN corepack enable ; yarn set version latest ; yarn install ; yarn add mysql2
-
-RUN yarn build
+RUN corepack enable ; yarn set version latest ; yarn install ; yarn build
 
 # Application runner
 # -> runs the transpiled code itself

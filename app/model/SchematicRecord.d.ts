@@ -5,5 +5,5 @@ export declare type SchematicRecord = {
     fileName: string,
     last_accessed?: Date,
     expired?: Date,
-    uploader: string
+    uploader?: string
 }
