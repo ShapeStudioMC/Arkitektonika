@@ -172,6 +172,7 @@ export default class Database implements IDataStorage {
                 filename char(33) not null,
                 last_accessed integer not null,
                 expired date,
+                uploaded_by char(36) null,
                 constraint accounting_pk primary key (id autoincrement))`).run();
         [
             'create unique index if not exists accounting_id_uindex on accounting (id);',
@@ -192,7 +193,8 @@ export default class Database implements IDataStorage {
             deleteKey: row.delete_key,
             fileName: row.filename,
             expired: row.expired ? new Date(row.expired) : undefined,
-            last_accessed: row.last_accessed ? new Date(row.last_accessed) : undefined
+            last_accessed: row.last_accessed ? new Date(row.last_accessed) : undefined,
+            uploader: row.uploaded_by
         }
     }
 }
