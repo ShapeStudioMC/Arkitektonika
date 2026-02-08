@@ -30,6 +30,7 @@ RUN corepack enable ; yarn set version latest; \
 # Can't just change the app directory, as that might break existing directory mounts - so it'll do
 RUN cp package.json ./../package.json
 RUN chown -R appuser:appgroup /app /app/../package.json
+RUN mkdir -p /app/data && chown -R appuser:appgroup /data
 
 USER appuser
 
