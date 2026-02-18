@@ -6,4 +6,7 @@ export declare type SchematicRecord = {
     last_accessed?: Date,
     expired?: Date,
     uploader?: string
+    schem_type?: string
+    pos1?: string
+    pos2?: string
 }

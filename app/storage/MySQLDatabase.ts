@@ -58,8 +58,8 @@ export default class MySQLDatabase implements IDataStorage {
 
     async storeSchematicRecord(record: SchematicRecord): Promise<SchematicRecord> {
         await this.pool.query(
-            'INSERT INTO accounting (filename, download_key, delete_key, last_accessed, uploaded_by) VALUES (?, ?, ?, ?, ?)',
-            [record.fileName, record.downloadKey, record.deleteKey, Date.now(), record.uploader]
+            'INSERT INTO accounting (filename, download_key, delete_key, last_accessed, uploaded_by, schem_type, pos1, pos2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [record.fileName, record.downloadKey, record.deleteKey, Date.now(), record.uploader, record.schem_type, record.pos1, record.pos2]
         );
         return record;
     }
@@ -112,7 +112,10 @@ export default class MySQLDatabase implements IDataStorage {
                 filename VARCHAR(255) NOT NULL,
                 last_accessed BIGINT NOT NULL,
                 expired BIGINT NULL,
-                uploaded_by CHAR(36) NULL
+                uploaded_by CHAR(36) NULL,
+                schem_type VARCHAR(10) NULL,
+                pos1 VARCHAR(35) NULL,
+                pos2 VARCHAR(35) NULL
             );`,
         ];
 
@@ -132,7 +135,10 @@ export default class MySQLDatabase implements IDataStorage {
             fileName: row.filename,
             expired: row.expired ? new Date(Number(row.expired)) : undefined,
             last_accessed: row.last_accessed ? new Date(Number(row.last_accessed)) : undefined,
-            uploader: row.uploaded_by
+            uploader: row.uploaded_by,
+            schem_type: row.schem_type,
+            pos1: row.pos1,
+            pos2: row.pos1
         };
     }
 }
